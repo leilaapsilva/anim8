@@ -94,94 +94,90 @@ Mas você provavelmente nunca usará getFrames diretamente. Você pode usar um g
 
 Isso é muito conveniente para uso em animações.
 
-Let's consider the submarine in the previous example. It has 7 frames, arranged horizontally.
+Vamos considerar o submarino do exemplo anterior. Ele possui 7 frames, arranjados horizontalmente. 
 
-If you make its grid start on its first frame (using `left` and `top`), you can get its frames like this:
+Se você fizer seu grid começar em seu primeiro frame (usando `left`e `top`), você pode obter seus frames assim:
 
-                           -- frame, image,    offsets, border
+                            -- frame, image,    offsets, border
     local gs = anim8.newGrid(32,98, 1024,768,  366,102,   1)
 
     local frames = gs('1-7',1)
-
-However that way you will get a submarine which "emerges", then "suddenly disappears", and emerges again. To make it look more natural, you must add some animation frames "backwards", to give the illusion
-of "submersion". Here's the complete list:
+    
+No entanto, dessa forma você terá um submarino que "emerge", então "de repente desaparece", e emerge novamente. Para torná-lo mais natural, você deve adicionar alguns frames de animação "para trás", para dar a ilusão de "submersão". Aqui está a lista completa:
 
     local frames = gs('1-7',1, '6-2',1)
 
-
-
-Animations
+Animações
 ----------
 
-Animations are groups of frames that are interchanged every now and then.
+Animações são grupos de frames que são trocados de vez em quando.
 
 `local animation = anim8.newAnimation(frames, durations, onLoop)`:
 
-* `frames` is an array of frames (Quads in LÖVE argot). You could provide your own quad array if you wanted to, but using a grid to get them is very convenient.
-* `durations` is a number or a table. When it's a number, it represents the duration of all frames in the animation. When it's a table, it can represent different durations for different frames. You can specify durations for all frames individually, like this: `{0.1, 0.5, 0.1}` or you can specify durations for ranges of frames: `{['3-5']=0.2}`.
-* `onLoop` is an optional parameter which can be a function or a string representing one of the animation methods. It does nothing by default. If specified, it will be called every time an animation "loops". It will have two parameters: the animation instance, and how many loops have been elapsed. The most usual value (apart from none) is the
-string 'pauseAtEnd'. It will make the animation loop once and then pause and stop on the last frame.
+* `frames` é um vetor de frames (Quads em gíria de LÖVE). Você poderia forneceer o seu próprio array de quadros se você quisesse, mas usar um grid para obtê-los é muito conveniente.
+* `durantions` é um número ou uma tabela. Quando e um número, representa a duração de todos os frames na animação. Quando é uma tabela, pode representar durações diferentes para frames diferentes. Você pode especificar durações para todos os frames individualmente, assim: `{0.1, 0.5, 0.1}`ou você pode especificar durações para intervalos de frames: `{['3-5']=0.2}`.
+* `onLoop`é um parâmetro opcional que pode ser uma função ou uma string representando um dos métodos da animação. Não faz nada por padrão. Se especificado, será chamado toda vez que uma animação fizer o loop. Terá dois parâmetros: a instância da animação, e quantos loops foram decorridos. O valor mais usual (além de nenhum) é a string 'pauseAtEnd'. Fará a animação fazer o loop uma vez e então pausar e parar no último frame.
 
-Animations have the following methods:
+Animações possuem os seguintes métodos:
 
 `animation:update(dt)`
 
-Use this inside `love.update(dt)` so that your animation changes frames according to the time that has passed.
+Use isso dentro de `love.update(dt)` para que sua animação mude de frames de acordo com o tempo que passou.
 
 `animation:draw(image, x,y, angle, sx, sy, ox, oy, kx, ky)`
 
-Draws the current frame in the specified coordinates with the right angle, scale, offset & shearing. These parameters work exactly the same way as in [love.graphics.draw](https://love2d.org/wiki/love.graphics.draw).
-The only difference is that they are properly recalculated when the animation is flipped horizontally, vertically or both. See `getFrameInfo` below for more details.
+Desenha o frame atual nas coordenadas especificadas com o ângulo certo, escala, deslocamento e corte. Estes parâmetros funcionam exatamente da mesma forma que em [love.graphics.draw](https://love2d.org/wiki/love.graphics.draw).
+A núnica diferente é que eles são recalculados corretamente quando a animação é invertida horizintalmente, verticalmente ou ambos. Veja `getFrameInfo` abaixo para mais detalhes.
 
 `animation:gotoFrame(frame)`
 
-Moves the animation to a given frame (frames start counting in 1).
+Move a animação para um determinado frame (frames começam a ser contados em 1).
 
 `animation:pause()`
 
-Stops the animation from updating (@animation:update(dt)@ will have no effect)
+Para a animação da atualização (@animation:update(dt)@ não terá efeito)
 
 `animation:resume()`
 
-Unpauses an animation
+Retoma uma animação
 
 `animation:clone()`
 
-Creates a new animation identical to the current one. The only difference is that its internal counter is reset to 0 (it's on the first frame).
+Cria uma nova animação idêntica à atual. A única diferença é que seu contator interno é resetado para 0 (está no primeiro frame).
 
 `animation:flipH()`
 
-Flips an animation horizontally (left goes to right and viceversa). This means that the frames are simply drawn differently, nothing more.
+Inverte uma animação horizontalmente (esquerda vai para direita e vice-versa). Isso significa que os frames são simplesmente desenhados de forma diferente, nada mais.
 
-Note that this method does not create a new animation. If you want to create a new one, use the `clone` method.
+Note que este método não cria uma nova animação. Se você quer criar uma nova, use o método `clone`.
 
-This method returns the animation, so you can do things like `local a = anim8.newAnimation(g(1,'1-10'), 0.1):flipV()`
+Esse método retorna a animação, então você pode fazer coisas como `local a = anim8.newAnimation(g(1,'1-10'), 0.1):flipV()`
 
 `animation:flipV()`
 
-Flips an animation vertically. The same rules that apply to `flipH` also apply here.
+Inverte a animação verticalmente As mesmas regras aplicadas a `flipH`também se aplicam aqui.
 
 `animation:pauseAtEnd()`
 
-Moves the animation to its last frame and then pauses it.
+Move a animação para seu último frame e então a pausa.
 
 `animation:pauseAtStart()`
 
-Moves the animation to its first frame and then pauses it.
+Move a animação para o seu primeiro frame e então a pausa.
 
 `animation:getDimensions()`
 
-Returns the width and height of the current frame of the animation. This method assumes the frames passed to the animation are all quads (like the ones
-created by a grid).
+Retorna a larura e altura do frame atual da animação. Este método assumo que os frames passados para a animação são todos quadros (como o criado por um grid).
 
 `animation:getFrameInfo(x,y, r, sx, sy, ox, oy, kx, ky)`
 
-This functions returns the parameters that would be passed to `love.graphics.draw` when drawing this animation:
+Esta função retorna os parâmetros que seriam passados para `love.graphics.draw` ao desenhar esta animação:
 `frame, x, y, r, sx, sy, ox, oy, kx, ky`.
 
-* `frame` is the currently active frame for the animation (usually a quad produced by a grid)
-* `x,y` are the same coordinates passed as parameter to `getFrame` (there are no changes)
-* `r` is the same angle passed to `getFrame`, with no changes unless it is `nil`, in which case it becomes 0.
+* `frame`é o frame atualmente ativo para a animação (geralmente um quadro produzido por um grid)
+* `x,y`são as mesmas coordenadas passadas como parâmetro para `getFrame` (não há mudanças)
+* `r`é o mesmo ângulo passado para `getFrame`, sem mudanças a menos que seja `nil`, caso em que se torna 0.
+
 * `sx,sy` are the scale values, with their sign changed if the animation is flipped vertically or horizontally
 * `ox,oy` are the offset values, with the width or height properly substracted if the animation is flipped. 0 is used as a initial value for these calculations if nil was passed.
 * `kx,ky` are the shearing factors, changed depending on the flip status.
