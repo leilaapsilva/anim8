@@ -176,13 +176,12 @@ Esta função retorna os parâmetros que seriam passados para `love.graphics.dra
 
 * `frame`é o frame atualmente ativo para a animação (geralmente um quadro produzido por um grid)
 * `x,y`são as mesmas coordenadas passadas como parâmetro para `getFrame` (não há mudanças)
-* `r`é o mesmo ângulo passado para `getFrame`, sem mudanças a menos que seja `nil`, caso em que se torna 0.
+* `r`é o mesmo ângulo passado para `getFrame`, sem mudanças a menos que seja `nil`, caso em que se torna 0
+* `sx, sy`são os valores de escala, com seu sinal alterado se a animação é virada verticalmente ou horizontalmente
+* `ox,oy`são os valores de deslocamento, com a largura ou altura corretamente subtraída se a animação é invertida. 0 é usado como um valor inicial para estes cálculos se nil foi passado.
+* `kx,ky`são os fatores de corte, alterados dependendo do estado de flip (iversão).
 
-* `sx,sy` are the scale values, with their sign changed if the animation is flipped vertically or horizontally
-* `ox,oy` are the offset values, with the width or height properly substracted if the animation is flipped. 0 is used as a initial value for these calculations if nil was passed.
-* `kx,ky` are the shearing factors, changed depending on the flip status.
-
-The `getFrame` method can be used when working with [spriteBatches](https://love2d.org/wiki/SpriteBatch). Here's how it can be used for adding & setting the corresponding quad in a spritebatch:
+O método `getFrame`pode ser usado quando trabalhando com [spriteBatches](https://love2d.org/wiki/SpriteBatch). Veja como ele pode ser usado para adicionar e configurar o quadro correspondente em um spritebatch:
 
 ``` lua
 local id = spriteBatch:add(animation:getFrameInfo(x,y,r,sx,sy,ox,oy,kx,ky))
@@ -192,21 +191,19 @@ local id = spriteBatch:add(animation:getFrameInfo(x,y,r,sx,sy,ox,oy,kx,ky))
 spriteBatch:set(id, animation:getFrameInfo(x,y,r,sx,sy,ox,oy,kx,ky))
 ```
 
-You can see an example of this in the [spritebatch-demo branch](https://github.com/kikito/anim8/tree/spritebatch-demo).
+Você pode ver um exemplo disso em [spritebatch-demo branch](https://github.com/kikito/anim8/tree/spritebatch-demo).
 
-
-Installation
+Instalação
 ============
 
-Just copy the anim8.lua file wherever you want it. Then require it wherever you need it:
+Apenas copie o arquivo anim8.lua para onde você quiser. Em seguida, adicione um require onde você precisar:
 
     local anim8 = require 'anim8'
+    
+Certifique-se de que leu a licença, também (para sua conveniência ela está incluída no início do arquivo anim8.lua).
 
-Please make sure that you read the license, too (for your convenience it's included at the beginning of the anim8.lua file).
-
-Specs
+Especificações 
 =====
 
-This project uses [busted](http://olivinelabs.com/busted/) for its specs. If you want to run the specs, you will have to install it first. Then just execute the following from the root folder:
-
-    busted
+Este projeto usa [busted](http://olivinelabs.com/busted/) para suas especificações. Se você quiser executar as especificações, você terá que instalá-lo primeiro. Em seguida, basta executar o seguinte a partir da pasta raíz:
+      busted
