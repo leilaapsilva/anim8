@@ -1,24 +1,26 @@
 anim8
 =====
 
-Animation library for [LÖVE](http://love2d.org).
+Biblioteca de animação para [LÖVE](http://love2d.org).
 
 [![Build Status](https://travis-ci.org/kikito/anim8.png?branch=master)](https://travis-ci.org/kikito/anim8)
 [![Coverage Status](https://coveralls.io/repos/github/kikito/anim8/badge.svg?branch=master)](https://coveralls.io/github/kikito/anim8?branch=master)
 
-In order to build animations more easily, anim8 divides the process in two steps: first you create a *grid*, which
-is capable of creating *frames* (Quads) easily and quickly. Then you use the grid to create one or more *animations*.
+Para fazer animações mais facilmente, anim8 divide o processo em duas etapas: primeiro você cria um *grid", que é capaz 
+de criar *frames* (quadros) de forma fácil e rápida. Então, você usa o grid para criar uma ou mais *animações*.
 
-LÖVE compatibility
+
+Compatibilidade com LÖVE 
 ==================
 
-Since anim8 uses LÖVE's graphical functions, and they change from version to version, you must choose
-the version of anim8 which is compatible with your LÖVE.
 
-* The current version of anim8 is v2.1. It is compatible with LÖVE 0.9.x and 0.10.x
-* The last version of anim8 compatible with LÖVE 0.8.x was [anim8 v2.0](https://github.com/kikito/anim8/tree/v2.0.0).
+Uma vez que anim8 usa funções gráficas de LÖVE, e nós mudamos de versão a versão, você deve escolher a versão 
+de anim8 que seja compatível com seu LÖVE.
 
-Example
+* A versão atual de anim8 é v2.1. É compatível com LÖVE 0.9.x e 0.10.x
+* A última versão de anim8 compatível com LÖVE 0.8.x era [anim8 v2.0](https://github.com/kikito/anim8/tree/v2.0.0).
+
+Exemplo
 =======
 
 ```
@@ -41,28 +43,27 @@ function love.draw()
 end
 ```
 
-You can see a more elaborated example in the [demo branch](https://github.com/kikito/anim8/tree/demo).
+Este demo transforma esse spritesheet:
 
-That demo transforms this spritesheet:
+Você pode ver um exemplo mais elaborado em [demo branch](https://github.com/kikito/anim8/tree/demo).
 
 ![1945](http://kikito.github.io/anim8/1945.png)
 
-Into several animated objects:
+Em vários objetos animados:
 
 ![1945](http://kikito.github.io/anim8/anim8-demo.gif)
 
-
-Explanation
+Explicação 
 ===========
 
 Grids
 -----
 
-Grids have only one purpose: To build groups of quads of the same size as easily as possible. In order to do this, they need to know only 2 things: the size of each quad and the size of the image they will be applied two. Each size is a width and a height, and those are the first 4 parameters of @anim8.newGrid@.
+Grids possuem apenas dois propósitos: Construir grupos de quadros do mesmo tamanho o mais facilmente possível. Para fazer isso, eles precisam saber apenas duas coisas: o tamanho de cada quadro e o tamanho da imagem em que eles serão aplicados. Cada tamanho é uma largura e altura, e estes são os 4 primeiros parâmetros de @anim8.newGrid@.
 
-Grids are just a convenient way of getting frames from a sprite. Frames are assumed to be distributed in rows and columns. Frame 1,1 is the one in the first row, first column.
+Grids são apenas uma forma conveniente de obter frames de um sprite. Assume-se que os frames são distribuídos em linhas e colunas. Frame 1,1 é a primeira linha, primeira coluna. 
 
-This is how you create a grid:
+Aqui está como se cria um grid:
 
 `anim8.newGrid(frameWidth, frameHeight, imageWidth, imageHeight, left, top, border)`:
 
