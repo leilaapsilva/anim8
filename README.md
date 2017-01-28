@@ -63,25 +63,25 @@ Grids possuem apenas dois propósitos: Construir grupos de quadros do mesmo tama
 
 Grids são apenas uma forma conveniente de obter frames de um sprite. Assume-se que os frames são distribuídos em linhas e colunas. Frame 1,1 é a primeira linha, primeira coluna. 
 
-Aqui está como se cria um grid:
+Eis como se cria um grid:
 
 `anim8.newGrid(frameWidth, frameHeight, imageWidth, imageHeight, left, top, border)`:
 
-* `frameWidth` and `frameHeight` are the dimensions of the animation *frames* - each of the individual "sub-images" that compose the animation. They are usually the same size as your character (so if the character is
-    32x32 pixels, `frameWidth` is 32 and so is `frameHeight`)
-* `imageWidth` and `imageHeight` are the dimensions of the image where all the frames are. In LÖVE, they can be obtained by doing `image:getWidth()` and `image:getHeight()`.
-* `left` and `top` are optional, and both default to 0. They are "the left and top coordinates of the point in the image where you want to put the origin of coordinates of the grid". If all the frames in your grid are
-  the same size, and the first one's top-left corner is 0,0, you probably won't need to use `left` or `top`.
-* `border` is also an optional value, and it also defaults to zero. What `border` does is allowing you to define "gaps" between your frames in the image. For example, imagine that you have frames of 32x32, but they
-  have a 1-px border around each frame. So the first frame is not at 0,0, but at 1,1 (because of the border), the second one is at 1,33 (for the extra border) etc. You can take this into account and "skip" these borders.
+* `frameWidth`and `frameHeight`são as dimensões dos *frames* da animação - cada uma das "sub-images" individuais que compõe a animação. São usualmente do mesmo tamanho do seu personagem (então se o personagem é 32x32 pixels, 'frameWidth`e `frameHeight`são 32.
+* `imageWidth` e `imageHeight`são as dimensões da imagem onde todos os frames estão. Em LÖVE, elas podem ser obtidas com `imagem:getWidth()` e  `image:getHeight()`.
+* `left` e `top` são opcionais, e ambos são 0 por padrão. Eles são "as coordenadas esquerda e em cima do ponto em uma imagem onde você queira colocar a origem de coordenadas do grid". Se todos os frames em seu grid são do mesmo tamanho, e o primeiro canto esquerda-em cima é 0,0, você provavelmente não precisa utilizar `left`ou `top`.
+* `border` também é um valor opicional, e também vale zero por padrão. O que `border`faz é permitir que você defina "lacunas" entre os frames na imagem. Por exemplo, imagine que você tem frames de 32x32, mas eles tem uma borda de um pixel ao redor de cada frame.Então o primeiro frame não está em 0,0 mas em 1,1 (por causa da borda), o segundo está em 1,33 (por causa da outra borda) etc. Você pode levar isso em conta e "pular" essas bordas.
 
-To see this a bit more graphically, here are what those values mean for the grid which contains the "submarine" frames in the demo:
-
+Para ver isso um pouco mais graficamente, aqui está o que esses valores significam para o grid que contém os framos de "submarino" na demo:
 ![explanation](http://kikito.github.io/anim8/anim8-explanation.png)
 
-Grids only have one important method: `Grid:getFrames(...)`.
+Grids possuem apenas um método importante: `Grid:getFrames(...)`.
 
-`Grid:getFrames` accepts an arbitrary number of parameters. They can be either numbers or strings.
+aceita um número arbitrário de parâmetros. Podem ser números ou strings.
+
+`Grid:getFrames`aceita um número arbitrário de parâmetros. Podem ser números ou strings.
+
+* Cada dois números são interpretados como coordenadas. Desde modo, `grid:getFrames(3,4)` irá retornar o frame na coluna 3, linha 4 do grid. Pode haver mais do que apenas dois: 
 
 * Each two numbers are interpreted as quad coordinates. This way, `grid:getFrames(3,4)` will return the frame in column 3, row 4 of the grid. There can be more than just two: `grid:getFrames(1,1, 1,2, 1,3)` will return the frames in {1,1}, {1,2} and {1,3} respectively.
 * Using numbers for long rows is tedious - so grids also accept strings. The previous row of 3 elements, for example, can be also expressed like this: `grid:getFrames(1,'1-3')` . Again, there can be more than one string (`grid:getFrames(1,'1-3', '2-4',3)`) and it's also possible to combine them with numbers (`grid:getFrames(1,4, 1,'1-3')`)
