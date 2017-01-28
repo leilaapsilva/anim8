@@ -2,11 +2,18 @@
 local anim8 = require 'anim8'
 
 function love.load()
+  -- carrega a imagem para uma variavel
   image = love.graphics.newImage('media/1945.png')
 
+  -- 32x32 = tamanho de cada frame, 
+  -- 1024x768 = tamanho da imagem,
+  -- 3 = left 
+  -- 3 = top
+  -- 1 = border
                          -- frame, image,    offsets, border
   local g32 = anim8.newGrid(32,32, 1024,768,   3,3,     1)
-
+  
+  -- cria uma tabela 
   spinning = {
                      -- type    -- frames                   --default delay
     anim8.newAnimation(g32('1-8',1),              0.1),
