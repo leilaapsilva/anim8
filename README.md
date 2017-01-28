@@ -206,4 +206,5 @@ Especificações
 =====
 
 Este projeto usa [busted](http://olivinelabs.com/busted/) para suas especificações. Se você quiser executar as especificações, você terá que instalá-lo primeiro. Em seguida, basta executar o seguinte a partir da pasta raíz:
-      busted
+
+    busted
