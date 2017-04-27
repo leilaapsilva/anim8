@@ -3,7 +3,7 @@ anim8
 
 Biblioteca de animação para [LÖVE](http://love2d.org).
 
-Endereço da versão original em inglês: https://github.com/kikito/anim8
+[**Versão original em inglês**].(https://github.com/kikito/anim8)
 
 [![Build Status](https://travis-ci.org/kikito/anim8.png?branch=master)](https://travis-ci.org/kikito/anim8)
 [![Coverage Status](https://coveralls.io/repos/github/kikito/anim8/badge.svg?branch=master)](https://coveralls.io/github/kikito/anim8?branch=master)
